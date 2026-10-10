@@ -130,6 +130,8 @@ figure { margin: 0; min-width: 0; }
 .frame::after { content: ""; position: absolute; inset: 8%; border: 1px dashed var(--guide); }
 figcaption { margin-top: 8px; font-family: var(--f-mono); font-size: 0.72rem; color: var(--muted); overflow-wrap: anywhere; }
 
+.shot { display: block; width: 100%; max-width: 100%; height: auto; border: 1px solid var(--rule); background: var(--surface); }
+
 /* About */
 .about { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px 24px; padding-block: 24px 56px; align-items: start; }
 .about-photo { grid-column: 1 / span 4; min-width: 0; }
@@ -208,7 +210,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
       <figure class="wide"><div class="frame" style="--ar: 2000 / 515"></div><figcaption>2501-honda-optiona.jpg · 2000 × 515</figcaption></figure>
       <figure class="wide"><div class="frame" style="--ar: 1920 / 600"></div><figcaption>2607-toyota-optionb.jpg · 1920 × 600</figcaption></figure>
       <figure class="wide"><div class="frame" style="--ar: 1920 / 600"></div><figcaption>2411-hyundai-optiona.jpg · 1920 × 600</figcaption></figure>
-      <figure class="wide"><div class="frame" style="--ar: 1920 / 600"></div><figcaption>gba2605-slide-integra.jpg · 1920 × 600</figcaption></figure>
+      <figure class="wide"><img class="shot" src="images/gba2605-slide-integra.jpg" width="1920" height="600" loading="lazy" alt="Website banner for the new 2026 Acura Integra: 3.99% APR for 72 months, or lease for $329 a month for 36 months, with a View Inventory button."><figcaption>Acura Integra offer banner · 1920 × 600</figcaption></figure>
       <figure class="wide"><div class="frame" style="--ar: 1920 / 600"></div><figcaption>2605-toyota-optionb.jpg · 1920 × 600</figcaption></figure>
       <figure class="wide"><div class="frame" style="--ar: 2686 / 1504"></div><figcaption>screenshot-2026-07-28-at-4.15.31-pm.png · 2686 × 1504</figcaption></figure>
     </div>
