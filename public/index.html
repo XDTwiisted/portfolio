@@ -89,15 +89,12 @@ h1 {
 .roles { margin: 24px 0 0; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 .roles span { color: var(--accent); padding-inline: 0.5em; }
 .lede { margin: 0; max-width: 34ch; font-size: 1.15rem; line-height: 1.5; }
-.reel {
-  display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center;
-  padding: 14px 16px; text-decoration: none;
-  background: var(--accent); color: var(--on-accent);
-}
-.reel:hover { filter: brightness(1.08); }
-.reel .play { width: 0; height: 0; border-block: 9px solid transparent; border-left: 14px solid currentColor; margin-left: 4px; }
-.reel b { display: block; font-weight: 600; }
-.reel small { font-family: var(--f-mono); font-size: 0.72rem; opacity: 0.85; }
+/* Intro reel: embedded player, sized 16:9 */
+.reel-section { padding-block: clamp(24px, 4vw, 48px); border-bottom: 1px solid var(--rule); }
+.player { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: var(--surface); border: 1px solid var(--rule); }
+.player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.player-note { margin: 10px 0 0; font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
+.player-note a { text-decoration-color: var(--accent); text-underline-offset: 3px; }
 
 /* Section heads */
 .section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; padding-block: 48px 8px; }
@@ -188,11 +185,14 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
     </div>
     <div class="hero-side">
       <p class="lede">Graphic designer with 5+ years creating digital, print and social media marketing for multi-location automotive dealerships.</p>
-      <a class="reel" href="https://www.youtube.com/watch?v=EGbUAM4GoGc" target="_blank" rel="noopener">
-        <span class="play" aria-hidden="true"></span>
-        <span><b>Watch the intro reel</b><small>YouTube, opens in a new tab</small></span>
-      </a>
     </div>
+  </section>
+
+  <section class="reel-section" aria-label="Intro reel">
+    <div class="player">
+      <iframe src="https://www.youtube-nocookie.com/embed/EGbUAM4GoGc?rel=0" title="Hunter Tenney intro reel" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <p class="player-note">Intro reel. <a href="https://www.youtube.com/watch?v=EGbUAM4GoGc" target="_blank" rel="noopener">Watch on YouTube</a> if it doesn't load.</p>
   </section>
 
   <div class="section-head" id="work">
