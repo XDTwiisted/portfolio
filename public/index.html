@@ -14,32 +14,32 @@
 <title>Hunter Tenney Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
 /* Layout: left-aligned, asymmetric. A wide expanded-width name over a link to the intro reel.
    Each project is a text column beside its image frames, drawn as ad proofs with safe-area guides. */
 :root {
   color-scheme: light;
-  --bg: #ECEEF1;
-  --surface: #F6F7F9;
-  --ink: #12161C;
-  --muted: #55606D;
-  --rule: #C6CCD3;
+  --bg: #EEEBE3;
+  --surface: #F7F5EF;
+  --ink: #17161A;
+  --muted: #5C5A55;
+  --rule: #BDB8AB;
   --accent: #1F3FE0;
   --on-accent: #FFFFFF;
-  --hatch: #D5DAE0;
+  --hatch: #DDD9CE;
   --guide: #9AA6C9;
-  --f-display: "Archivo", "Arial Narrow", Arial, sans-serif;
-  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --f-display: "Courier Prime", "Courier New", Courier, monospace;
+  --f-body: "Courier Prime", "Courier New", Courier, monospace;
+  --f-mono: "Courier Prime", "Courier New", Courier, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #101318;
-    --surface: #171B21;
-    --ink: #E9ECEF;
-    --muted: #9BA5B1;
-    --rule: #2B323B;
+    --bg: #121210;
+    --surface: #1A1A17;
+    --ink: #ECE8DC;
+    --muted: #A09C90;
+    --rule: #3A3933;
     --accent: #8299FF;
     --on-accent: #0B0E14;
     --hatch: #232932;
@@ -48,11 +48,11 @@
   }
 }
 :root[data-theme="dark"] {
-  --bg: #101318;
-  --surface: #171B21;
-  --ink: #E9ECEF;
-  --muted: #9BA5B1;
-  --rule: #2B323B;
+  --bg: #121210;
+  --surface: #1A1A17;
+  --ink: #ECE8DC;
+  --muted: #A09C90;
+  --rule: #3A3933;
   --accent: #8299FF;
   --on-accent: #0B0E14;
   --hatch: #232932;
@@ -81,41 +81,44 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 /* Top bar */
 .top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-block: 20px; }
-.top .mark { font-family: var(--f-display); font-stretch: 125%; font-weight: 800; font-size: 0.95rem; text-decoration: none; letter-spacing: 0.02em; }
-.top nav { display: flex; gap: 20px; font-size: 0.9rem; }
+.top .mark { font-family: var(--f-display); font-weight: 700; font-size: 1rem; text-decoration: none; letter-spacing: 0; }
+.top nav { display: flex; gap: 20px; font-size: 1rem; }
 .top nav a { text-decoration: none; color: var(--muted); padding-block: 4px; border-bottom: 1px solid transparent; }
 .top nav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
 
 /* Hero */
-.hero { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px 24px; padding-block: clamp(32px, 7vw, 88px) clamp(32px, 6vw, 64px); border-bottom: 1px solid var(--rule); align-items: end; }
+.hero { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px 24px; padding-block: clamp(32px, 7vw, 88px) clamp(32px, 6vw, 64px); border-bottom: 1px dashed var(--rule); align-items: end; }
 .hero-main { grid-column: 1 / span 8; min-width: 0; }
 .hero-side { grid-column: 9 / span 4; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
 h1 {
   margin: 0;
-  font-family: var(--f-display); font-stretch: 125%; font-weight: 800;
-  font-size: clamp(2.5rem, 9.2vw, 7rem); line-height: 0.92; letter-spacing: -0.02em;
-  text-wrap: balance;
+  font-family: var(--f-display); font-weight: 700;
+  font-size: clamp(1.9rem, 7vw, 5.25rem); line-height: 1; letter-spacing: -0.03em;
+  text-transform: uppercase;
 }
-.roles { margin: 24px 0 0; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.cursor { display: inline-block; width: 0.55em; height: 0.9em; margin-left: 0.12em; background: var(--accent); vertical-align: -0.06em; animation: blink 1.1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.tag { margin: 0 0 14px; font-family: var(--f-mono); font-size: 0.9rem; color: var(--accent); letter-spacing: 0.02em; }
+.roles { margin: 24px 0 0; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .roles span { color: var(--accent); padding-inline: 0.5em; }
 .lede { margin: 0; max-width: 34ch; font-size: 1.15rem; line-height: 1.5; }
 /* Intro reel: embedded player, sized 16:9 */
-.reel-section { padding-block: clamp(24px, 4vw, 48px); border-bottom: 1px solid var(--rule); }
+.reel-section { padding-block: clamp(24px, 4vw, 48px); border-bottom: 1px dashed var(--rule); }
 .player { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: var(--surface); border: 1px solid var(--rule); }
 .player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.player-note { margin: 10px 0 0; font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
+.player-note { margin: 10px 0 0; font-family: var(--f-mono); font-size: 0.85rem; color: var(--muted); }
 .player-note a { text-decoration-color: var(--accent); text-underline-offset: 3px; }
 
 /* Section heads */
 .section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; padding-block: 48px 8px; }
-h2 { margin: 0; font-family: var(--f-display); font-stretch: 112%; font-weight: 750; font-size: clamp(1.5rem, 3.2vw, 2.1rem); letter-spacing: -0.01em; }
-.section-head p { margin: 0; font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
+h2 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: clamp(1.5rem, 3.2vw, 2.1rem); letter-spacing: -0.01em; color: var(--accent); }
+.section-head p { margin: 0; font-family: var(--f-mono); font-size: 0.85rem; color: var(--muted); }
 
 
 /* Filters */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .filters { display: flex; flex-wrap: wrap; gap: 8px; }
-.pill { font: inherit; font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--ink); background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 8px 16px; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.pill { font: inherit; font-family: var(--f-mono); font-size: 0.9rem; letter-spacing: 0.02em; color: var(--ink); background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 8px 16px; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
 @media (hover: hover) { .pill:hover { border-color: var(--accent); color: var(--accent); } }
 .pill.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
 .pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -123,18 +126,21 @@ h2 { margin: 0; font-family: var(--f-display); font-stretch: 112%; font-weight: 
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pill.is-active { color: #0b0b0f; } }
 
 /* Projects */
-.project { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; padding-block: 40px; border-top: 1px solid var(--rule); }
+.project { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; padding-block: 40px; border-top: 1px dashed var(--rule); }
 .project:first-of-type, .project.is-first { border-top: 0; }
 .project[hidden] { display: none; }
 .p-head { grid-column: 1 / span 4; min-width: 0; align-self: start; position: sticky; top: 24px; }
 .p-frames { grid-column: 5 / span 8; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .p-frames .wide { grid-column: 1 / -1; }
-h3 { margin: 0; font-family: var(--f-display); font-stretch: 112%; font-weight: 750; font-size: clamp(1.35rem, 2.4vw, 1.75rem); line-height: 1.12; text-wrap: balance; }
-.p-tags { margin: 10px 0 0; font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--accent); }
-.p-desc { margin: 16px 0 0; max-width: 46ch; color: var(--ink); }
+h3 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: clamp(1.3rem, 2.2vw, 1.6rem); line-height: 1.15; text-wrap: balance; }
+.p-head::before { counter-increment: proj; content: "[" counter(proj, decimal-leading-zero) "]"; display: block; margin-bottom: 10px; font-family: var(--f-mono); font-size: 0.9rem; color: var(--muted); }
+.wrap { counter-reset: proj; }
+.p-tags { margin: 10px 0 0; font-family: var(--f-mono); font-size: 0.85rem; letter-spacing: 0.02em; color: var(--accent); }
+.p-tags::before { content: "// "; color: var(--muted); }
+.p-desc { margin: 16px 0 0; max-width: 46ch; color: var(--ink); font-size: 0.95rem; line-height: 1.6; }
 
 figure { margin: 0; min-width: 0; }
-figcaption { margin-top: 8px; font-family: var(--f-mono); font-size: 0.72rem; color: var(--muted); overflow-wrap: anywhere; }
+figcaption { margin-top: 8px; font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); overflow-wrap: anywhere; }
 
 .shot { display: block; width: 100%; max-width: 100%; height: auto; border: 1px solid var(--rule); background: var(--surface); position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease; }
 /* Images lift toward the viewer on hover. Only for devices that can hover, so touch screens do not get a stuck state. */
@@ -164,20 +170,20 @@ figcaption { margin-top: 8px; font-family: var(--f-mono); font-size: 0.72rem; co
 .about-text { grid-column: 6 / span 6; min-width: 0; }
 .about-text p { margin: 0 0 1.1em; max-width: 60ch; }
 .about-text p:first-child { font-size: 1.1rem; }
-.facts { margin: 24px 0 0; padding: 0; list-style: none; display: grid; gap: 0; border-top: 1px solid var(--rule); max-width: 60ch; }
-.facts li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 16px; padding-block: 10px; border-bottom: 1px solid var(--rule); font-size: 0.92rem; }
-.facts span { font-family: var(--f-mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; padding-top: 3px; }
+.facts { margin: 24px 0 0; padding: 0; list-style: none; display: grid; gap: 0; border-top: 1px dashed var(--rule); max-width: 60ch; }
+.facts li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 16px; padding-block: 10px; border-bottom: 1px dashed var(--rule); font-size: 0.92rem; }
+.facts span { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; padding-top: 3px; }
 
 /* Contact */
-.contact { border-top: 1px solid var(--rule); padding-block: 24px 40px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
+.contact { border-top: 1px dashed var(--rule); padding-block: 24px 40px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
 .contact h2 { grid-column: 1 / span 4; }
 .contact dl { grid-column: 5 / span 8; margin: 0; display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 12px 16px; align-items: baseline; }
-.contact dt { font-family: var(--f-mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+.contact dt { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; }
 .contact dd { margin: 0; font-size: 1.15rem; overflow-wrap: anywhere; }
 .contact dd a { text-decoration-color: var(--accent); text-underline-offset: 4px; text-decoration-thickness: 2px; }
 .contact .placeholder { border-bottom: 1px dashed var(--accent); color: var(--accent); }
 
-footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
+footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-family: var(--f-mono); font-size: 0.85rem; color: var(--muted); }
 
 @media (max-width: 860px) {
   .hero-main, .hero-side { grid-column: 1 / -1; }
@@ -218,15 +224,15 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
   <header class="top">
     <a class="mark" href="#top">Hunter Tenney</a>
     <nav aria-label="Primary">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#work">[work]</a>
+      <a href="#about">[about]</a>
+      <a href="#contact">[contact]</a>
     </nav>
   </header>
 
   <section class="hero" id="top">
     <div class="hero-main">
-      <h1>Hunter Tenney</h1>
+      <h1>Hunter Tenney<span class="cursor" aria-hidden="true"></span></h1>
       <p class="roles">Graphic Designer<span>/</span>Motion Designer<span>/</span>Video Editor</p>
     </div>
     <div class="hero-side">
@@ -235,6 +241,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
   </section>
 
   <section class="reel-section" aria-label="Intro reel">
+    <p class="tag">[intro]</p>
     <div class="player">
       <iframe src="https://www.youtube-nocookie.com/embed/EGbUAM4GoGc?rel=0&iv_load_policy=3&playsinline=1&color=white" title="Hunter Tenney intro reel" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
@@ -242,7 +249,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
   </section>
 
   <div class="section-head" id="work">
-    <h2 class="sr-only">Work</h2>
+    <h2>[work]</h2>
     <div class="filters" role="group" aria-label="Filter projects">
       <button type="button" class="pill is-active" data-filter="all" aria-pressed="true">All</button>
       <button type="button" class="pill" data-filter="digital" aria-pressed="false">Digital</button>
@@ -357,7 +364,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
   </section>
 
   <div class="section-head" id="about">
-    <h2>About</h2>
+    <h2>[about]</h2>
   </div>
   <section class="about">
     <figure class="about-photo">
@@ -376,7 +383,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
   </section>
 
   <section class="contact" id="contact">
-    <h2>Contact</h2>
+    <h2>[contact]</h2>
     <dl>
       <dt>EMAIL</dt>
       <dd><a href="mailto:tenneyhunter@gmail.com">tenneyhunter@gmail.com</a></dd>
@@ -388,7 +395,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
   </section>
 
   <footer>
-    <span>&copy; 2026 Hunter Tenney</span>
+    <span>[end] &copy; 2026 Hunter Tenney</span>
     <span>Graphic Designer / Motion Designer / Video Editor</span>
   </footer>
 </div>
