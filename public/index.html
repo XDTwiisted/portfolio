@@ -15,6 +15,40 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Courier+Prime:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+/* Display settings: theme (auto/light/dark) and accent color. Applied early to avoid a flash. */
+(function(){
+  var root=document.documentElement,BG={light:'#EEEBE3',dark:'#121210'};
+  function store(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
+  function load(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  function rgb(h){h=h.replace('#','');return [0,2,4].map(function(i){return parseInt(h.substr(i,2),16);});}
+  function lum(c){var a=c.map(function(v){v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);});return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];}
+  function ratio(a,b){var x=lum(a),y=lum(b);if(x<y){var t=x;x=y;y=t;}return (x+0.05)/(y+0.05);}
+  function toHsl(c){var r=c[0]/255,g=c[1]/255,b=c[2]/255,mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2,h=0,s=0,d=mx-mn;
+    if(d){s=l>0.5?d/(2-mx-mn):d/(mx+mn);h=mx===r?(g-b)/d+(g<b?6:0):mx===g?(b-r)/d+2:(r-g)/d+4;h*=60;}return [h,s,l];}
+  function fromHsl(h,s,l){function f(n){var k=(n+h/30)%12,a=s*Math.min(l,1-l);return Math.round(255*(l-a*Math.max(-1,Math.min(k-3,9-k,1))));}return [f(0),f(8),f(4)];}
+  function hex(c){return '#'+c.map(function(v){return ('0'+v.toString(16)).slice(-2);}).join('');}
+  function readable(base,mode){ /* shift lightness until text-sized contrast (4.5:1) is met against the page background */
+    var bg=rgb(BG[mode]),c=rgb(base),h=toHsl(c),l=h[2],step=mode==='dark'?0.01:-0.01,n=0;
+    while(ratio(fromHsl(h[0],h[1],l),bg)<4.5&&n++<100){l=Math.max(0,Math.min(1,l+step));}
+    return fromHsl(h[0],h[1],l);}
+  function effective(){var t=root.getAttribute('data-theme');if(t==='dark'||t==='light')return t;return window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+  var HT={
+    theme:load('ht-theme')||'auto',accent:load('ht-accent')||'',
+    apply:function(){
+      if(this.theme==='auto')root.removeAttribute('data-theme');else root.setAttribute('data-theme',this.theme);
+      if(this.accent&&/^#[0-9a-f]{6}$/i.test(this.accent)){ /* presets only */
+        var m=effective(),c=readable(this.accent,m),on=ratio(c,[255,255,255])>=ratio(c,[11,14,20])?'#FFFFFF':'#0B0E14';
+        root.style.setProperty('--accent',hex(c));root.style.setProperty('--on-accent',on);
+      }else{root.style.removeProperty('--accent');root.style.removeProperty('--on-accent');}
+    },
+    setTheme:function(t){this.theme=t;store('ht-theme',t==='auto'?null:t);this.apply();},
+    setAccent:function(a){this.accent=a||'';store('ht-accent',a||null);this.apply();}
+  };
+  window.HT=HT;HT.apply();
+  if(window.matchMedia){var mq=matchMedia('(prefers-color-scheme: dark)');var f=function(){HT.apply();};if(mq.addEventListener)mq.addEventListener('change',f);}
+})();
+</script>
 <style>
 /* Layout: left-aligned, asymmetric. A wide expanded-width name over a link to the intro reel.
    Each project is a text column beside its image frames, drawn as ad proofs with safe-area guides. */
@@ -91,6 +125,26 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .top nav { display: flex; gap: 20px; font-size: 1rem; }
 .top nav a { text-decoration: none; color: var(--muted); padding-block: 4px; border-bottom: 1px solid transparent; }
 .top nav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+
+
+/* Settings panel */
+.top { position: relative; }
+.top nav { align-items: center; }
+.set-btn { font: inherit; font-family: var(--f-mono); font-size: 1rem; color: var(--muted); background: none; border: 0; cursor: pointer; padding: 4px 0; }
+.set-btn:hover, .set-btn[aria-expanded="true"] { color: var(--ink); }
+.set-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.settings { position: absolute; right: 0; top: calc(100% - 6px); z-index: 20; width: min(300px, calc(100vw - 32px)); padding: 16px; background: var(--surface); color: var(--ink); border: 1px solid var(--ink); box-shadow: 6px 6px 0 var(--rule); }
+.settings h2 { font-size: 1rem; color: var(--accent); margin-bottom: 14px; }
+.settings .lbl { margin: 14px 0 8px; font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); }
+.seg { display: flex; border: 1px solid var(--rule); }
+.seg button { flex: 1; font: inherit; font-family: var(--f-mono); font-size: 0.85rem; padding: 10px 6px; background: transparent; color: var(--ink); border: 0; border-right: 1px solid var(--rule); cursor: pointer; }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.swatches { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.sw { width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; outline: 1px solid var(--rule); outline-offset: 0; cursor: pointer; padding: 0; }
+.sw[aria-pressed="true"] { border-color: var(--surface); outline: 2px solid var(--ink); }
+.sw:focus-visible, .seg button:focus-visible, .reset:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.reset { margin-top: 16px; font: inherit; font-family: var(--f-mono); font-size: 0.85rem; background: none; border: 0; padding: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
 /* Hero */
 .hero { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px 24px; padding-block: clamp(32px, 7vw, 88px) clamp(32px, 6vw, 64px); border-bottom: 1px dashed var(--rule); align-items: end; }
@@ -252,7 +306,28 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
       <a href="#work">[work]</a>
       <a href="#about">[about]</a>
       <a href="#contact">[contact]</a>
+      <button type="button" class="set-btn" id="set-btn" aria-expanded="false" aria-controls="settings" aria-label="Display settings">[&#9680;]</button>
     </nav>
+    <div class="settings" id="settings" role="dialog" aria-label="Display settings" hidden>
+      <h2>[settings]</h2>
+      <p class="lbl">theme</p>
+      <div class="seg" id="seg-theme">
+        <button type="button" data-theme-val="auto" aria-pressed="true">auto</button>
+        <button type="button" data-theme-val="light" aria-pressed="false">light</button>
+        <button type="button" data-theme-val="dark" aria-pressed="false">dark</button>
+      </div>
+      <p class="lbl">accent color</p>
+      <div class="swatches" id="swatches">
+        <button type="button" class="sw" data-accent="" style="background:#1F3FE0" aria-label="Blue (default)" aria-pressed="true"></button>
+        <button type="button" class="sw" data-accent="#D6361E" style="background:#D6361E" aria-label="Red" aria-pressed="false"></button>
+        <button type="button" class="sw" data-accent="#0E8A5F" style="background:#0E8A5F" aria-label="Green" aria-pressed="false"></button>
+        <button type="button" class="sw" data-accent="#C76A00" style="background:#C76A00" aria-label="Orange" aria-pressed="false"></button>
+        <button type="button" class="sw" data-accent="#0B7285" style="background:#0B7285" aria-label="Teal" aria-pressed="false"></button>
+        <button type="button" class="sw" data-accent="#8A3FD1" style="background:#8A3FD1" aria-label="Purple" aria-pressed="false"></button>
+        <button type="button" class="sw" data-accent="#C2255C" style="background:#C2255C" aria-label="Pink" aria-pressed="false"></button>
+      </div>
+      <button type="button" class="reset" id="set-reset">reset to default</button>
+    </div>
   </header>
 
   <section class="hero" id="top">
@@ -486,6 +561,25 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
   dlg.addEventListener('close',function(){document.body.classList.remove('lb-open');img.removeAttribute('src');if(opener)opener.focus({preventScroll:true});});
   var x0=null;dlg.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
   dlg.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50)show(idx+(d<0?1:-1));},{passive:true});
+})();
+
+(function(){
+  var btn=document.getElementById('set-btn'),panel=document.getElementById('settings');
+  if(!btn||!panel||!window.HT)return;
+  var themeBtns=panel.querySelectorAll('[data-theme-val]'),sws=panel.querySelectorAll('.sw');
+  function sync(){
+    themeBtns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.themeVal===HT.theme);});
+    sws.forEach(function(b){b.setAttribute('aria-pressed',(b.dataset.accent||'').toLowerCase()===(HT.accent||'').toLowerCase());});
+  }
+  function openP(){panel.hidden=false;btn.setAttribute('aria-expanded','true');}
+  function closeP(focus){panel.hidden=true;btn.setAttribute('aria-expanded','false');if(focus)btn.focus();}
+  btn.addEventListener('click',function(){panel.hidden?openP():closeP();});
+  document.addEventListener('click',function(e){if(!panel.hidden&&!panel.contains(e.target)&&!btn.contains(e.target))closeP();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!panel.hidden)closeP(true);});
+  themeBtns.forEach(function(b){b.addEventListener('click',function(){HT.setTheme(b.dataset.themeVal);sync();});});
+  sws.forEach(function(b){b.addEventListener('click',function(){HT.setAccent(b.dataset.accent);sync();});});
+  document.getElementById('set-reset').addEventListener('click',function(){HT.setTheme('auto');HT.setAccent('');sync();});
+  sync();
 })();
 </script>
 </body>
