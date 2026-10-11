@@ -106,6 +106,7 @@ body {
   background-color: var(--bg);
   background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
   background-size: 24px 24px;
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--f-body);
   font-size: 1rem;
@@ -209,6 +210,19 @@ figcaption { margin-top: 8px; font-family: var(--f-mono); font-size: 0.8rem; col
   figure:hover figcaption { color: var(--ink); }
 }
 
+
+
+/* Dot-grid reveal: dots near the pointer light up in the accent color. Fine pointers only, off for reduced motion. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image: radial-gradient(var(--accent) 1.4px, transparent 2px);
+    background-size: 24px 24px;
+    -webkit-mask-image: radial-gradient(circle 150px at var(--mx, -999px) var(--my, -999px), #000 0%, transparent 100%);
+    mask-image: radial-gradient(circle 150px at var(--mx, -999px) var(--my, -999px), #000 0%, transparent 100%);
+    opacity: 0.85;
+  }
+}
 
 /* Lightbox */
 .shot { cursor: zoom-in; }
@@ -580,6 +594,14 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
   sws.forEach(function(b){b.addEventListener('click',function(){HT.setAccent(b.dataset.accent);sync();});});
   document.getElementById('set-reset').addEventListener('click',function(){HT.setTheme('auto');HT.setAccent('');sync();});
   sync();
+})();
+
+(function(){
+  if(!window.matchMedia||!matchMedia('(hover: hover) and (pointer: fine)').matches||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var r=document.documentElement,x=0,y=0,q=false;
+  function flush(){q=false;r.style.setProperty('--mx',x+'px');r.style.setProperty('--my',y+'px');}
+  window.addEventListener('pointermove',function(e){x=e.clientX;y=e.clientY;if(!q){q=true;requestAnimationFrame(flush);}},{passive:true});
+  document.addEventListener('pointerleave',function(){r.style.setProperty('--mx','-999px');r.style.setProperty('--my','-999px');});
 })();
 </script>
 </body>
