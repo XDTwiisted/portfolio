@@ -1,3 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Hunter Tenney is a graphic designer, motion designer and video editor. Portfolio of advertising, branding, print and web design work.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hunter Tenney: Graphic Designer, Motion Designer, Video Editor">
+<meta property="og:description" content="Advertising, branding, print and web design work by Hunter Tenney.">
+<meta property="og:url" content="https://huntertenney.com/">
+<meta property="og:image" content="https://huntertenney.com/images/gba2605-slide-integra.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231F3FE0'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='30' font-weight='800' text-anchor='middle' fill='white'%3EHT%3C/text%3E%3C/svg%3E">
 <title>Hunter Tenney Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -6,6 +19,7 @@
 /* Layout: left-aligned, asymmetric. A wide expanded-width name over a link to the intro reel.
    Each project is a text column beside its image frames, drawn as ad proofs with safe-area guides. */
 :root {
+  color-scheme: light;
   --bg: #ECEEF1;
   --surface: #F6F7F9;
   --ink: #12161C;
@@ -46,8 +60,12 @@
   color-scheme: dark;
 }
 
+html { -webkit-text-size-adjust: 100%; }
 * { box-sizing: border-box; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
 body {
+  margin: 0;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--f-body);
@@ -60,14 +78,6 @@ a { color: inherit; }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .wrap { max-width: 1200px; margin-inline: auto; }
 
-/* Draft note */
-.draft {
-  display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline;
-  padding-block: 10px;
-  border-bottom: 1px solid var(--rule);
-  font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted);
-}
-.draft strong { color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
 
 /* Top bar */
 .top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-block: 20px; }
@@ -110,21 +120,8 @@ h2 { margin: 0; font-family: var(--f-display); font-stretch: 112%; font-weight: 
 h3 { margin: 0; font-family: var(--f-display); font-stretch: 112%; font-weight: 750; font-size: clamp(1.35rem, 2.4vw, 1.75rem); line-height: 1.12; text-wrap: balance; }
 .p-tags { margin: 10px 0 0; font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--accent); }
 .p-desc { margin: 16px 0 0; max-width: 46ch; color: var(--ink); }
-.todo {
-  display: inline-block; margin: 16px 0 0; padding: 3px 8px;
-  border: 1px dashed var(--accent); color: var(--accent);
-  font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.04em;
-}
 
-/* Image frames: placeholders drawn like ad proofs with a dashed safe area */
 figure { margin: 0; min-width: 0; }
-.frame {
-  position: relative; width: 100%; max-width: 100%;
-  aspect-ratio: var(--ar, 4 / 3);
-  border: 1px solid var(--rule);
-  background: repeating-linear-gradient(135deg, var(--hatch) 0 1px, transparent 1px 11px), var(--surface);
-}
-.frame::after { content: ""; position: absolute; inset: 8%; border: 1px dashed var(--guide); }
 figcaption { margin-top: 8px; font-family: var(--f-mono); font-size: 0.72rem; color: var(--muted); overflow-wrap: anywhere; }
 
 .shot { display: block; width: 100%; max-width: 100%; height: auto; border: 1px solid var(--rule); background: var(--surface); }
@@ -165,9 +162,10 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
+</head>
+<body>
 
 <div class="wrap">
-  <div class="draft"><strong>Draft</strong><span>Gray frames mark where your images go. Dashed outlines show items still needing text.</span></div>
 
   <header class="top">
     <a class="mark" href="#top">Hunter Tenney</a>
@@ -237,9 +235,9 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
       <p class="p-desc">A recipe website. I researched competing recipe sites and defined a persona and target audience, then built wireframes in Illustrator to set the structure. Style tiles settled the colors, typefaces and icons. The final is a detailed mockup, with several pages coded in HTML and CSS.</p>
     </div>
     <div class="p-frames">
-      <figure class="wide"><div class="frame" style="--ar: 7900 / 4858"></div><figcaption>Wireframing · desktop-wireframe.png · 7900 × 4858</figcaption></figure>
-      <figure><div class="frame" style="--ar: 1886 / 1800"></div><figcaption>Style tiles · styletile1.png · 1886 × 1800</figcaption></figure>
-      <figure><div class="frame" style="--ar: 1268 / 1268"></div><figcaption>Final mockup · smartmockups_kqn5e6bt.jpg · 1268 × 1268</figcaption></figure>
+      <figure class="wide"><img class="shot" src="images/elise-wireframes.jpg" width="2000" height="1230" loading="lazy" alt="Three desktop wireframes for the Elise's Cookin' recipe site drawn over a column grid: the home page, a recipe grid, and a recipe page."><figcaption>Wireframes: home, recipe grid and recipe page</figcaption></figure>
+      <figure><img class="shot" src="images/elise-style-tile.jpg" width="1600" height="1527" loading="lazy" alt="Style tile for Elise's Cookin' with a red header and script logo, filter bar, recipe cards with star ratings and cook times, a newsletter sign-up, and a palette of orange, red and gray."><figcaption>Style tile: Sansita Swashed, Quicksand and Oxygen, with #FBB040, #ED1C24 and #939598</figcaption></figure>
+      <figure><img class="shot" src="images/elise-mockup.jpg" width="1268" height="1268" loading="lazy" alt="Mockup of the Elise's Cookin' home page on a tablet, showing a photo of Elise, Elise's Picks and Recipe Winners with rated dishes."><figcaption>Final mockup on a tablet</figcaption></figure>
     </div>
   </section>
 
@@ -270,10 +268,11 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
   <section class="project" id="promotional-service">
     <div class="p-head">
       <h3>Promotional Service</h3>
-      <span class="todo">Add 1-2 sentences</span>
+      <p class="p-tags">Promotional Design / Logo Lockup</p>
+      <p class="p-desc">A promotional graphic for a $40 oil change offer. The price leads in heavy italic type, with the oil drop built into the word OIL, so the offer reads at a glance.</p>
     </div>
     <div class="p-frames">
-      <figure class="wide"><div class="frame" style="--ar: 1 / 1; max-width: 560px"></div><figcaption>test1port-1.jpg · 1000 × 1000</figcaption></figure>
+      <figure class="wide"><img class="shot" src="images/promo-oil-change.jpg" width="1000" height="1000" loading="lazy" alt="Graphic reading Home of the $40 Oil Change, in white and blue type on a navy background, with an oil drop inside the letter O of OIL." style="max-width: 560px"><figcaption>"Home of the $40 Oil Change" graphic</figcaption></figure>
     </div>
   </section>
 
@@ -313,3 +312,5 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
     <span>Graphic Designer / Motion Designer / Video Editor</span>
   </footer>
 </div>
+</body>
+</html>
