@@ -150,6 +150,24 @@ figcaption { margin-top: 8px; font-family: var(--f-mono); font-size: 0.8rem; col
   figure:hover figcaption { color: var(--ink); }
 }
 
+
+/* Lightbox */
+.shot { cursor: zoom-in; }
+.lightbox { border: 0; padding: 0; margin: 0; width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; background: rgba(10, 10, 9, 0.98); color: #ECE8DC; }
+.lightbox::backdrop { background: transparent; }
+.lb-stage { position: absolute; inset: 0; display: grid; place-items: center; padding: 64px 16px 72px; }
+.lb-img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.lb-cap { position: absolute; left: 16px; right: 16px; bottom: 20px; margin: 0; text-align: center; font-family: var(--f-mono); font-size: 0.85rem; color: #BDB8AB; }
+.lb-btn { position: absolute; z-index: 1; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid rgba(236,232,220,.35); border-radius: 50%; background: rgba(20,20,18,.7); color: #ECE8DC; font: 400 1.5rem/1 var(--f-mono); cursor: pointer; }
+.lb-btn:hover { border-color: #fff; background: rgba(40,40,36,.9); }
+.lb-btn:focus-visible { outline: 2px solid #8299FF; outline-offset: 2px; }
+.lb-close { top: 12px; right: 12px; }
+.lb-prev, .lb-next { top: 50%; transform: translateY(-50%); }
+.lb-prev { left: 12px; } .lb-next { right: 12px; }
+.lb-count { position: absolute; top: 24px; left: 20px; margin: 0; font-family: var(--f-mono); font-size: 0.85rem; color: #BDB8AB; }
+body.lb-open { overflow: hidden; }
+@media (max-width: 520px) { .lb-stage { padding: 64px 0 72px; } .lb-prev, .lb-next { top: auto; bottom: 12px; transform: none; } .lb-cap { bottom: 72px; } }
+
 /* Back to top */
 .to-top {
   position: fixed; z-index: 10;
@@ -261,6 +279,20 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     <p id="work-count" aria-live="polite">8 projects</p>
   </div>
 
+  <section class="project" id="supply-run" data-cat="personal">
+    <div class="p-head">
+      <h3>Supply Run</h3>
+      <p class="p-tags">Game Development / Unity / Work in Progress</p>
+      <p class="p-desc">A side project to get into game development. I'm learning Unity and building with AI-assisted code, and it has taught me how to break a big idea into small, testable pieces, how to direct AI with clear instructions and review what it writes, and how much a game depends on feel and playtesting. Still in progress, and I'll keep updating it.</p>
+    </div>
+    <div class="p-frames">
+      <figure class="wide">
+        <div class="player"><iframe src="https://www.youtube-nocookie.com/embed/6auf4vZ6IIQ?rel=0&iv_load_policy=3&playsinline=1&color=white" title="Supply Run gameplay video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+        <figcaption>Current build. <a href="https://youtu.be/6auf4vZ6IIQ" target="_blank" rel="noopener">Watch on YouTube</a> if it doesn't load.</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <section class="project" id="automotive-assets" data-cat="digital">
     <div class="p-head">
       <h3>Automotive Assets</h3>
@@ -351,20 +383,6 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </div>
   </section>
 
-  <section class="project" id="supply-run" data-cat="personal">
-    <div class="p-head">
-      <h3>Supply Run</h3>
-      <p class="p-tags">Game Development / Unity / Work in Progress</p>
-      <p class="p-desc">A side project to get into game development. I'm learning Unity and building with AI-assisted code, and it has taught me how to break a big idea into small, testable pieces, how to direct AI with clear instructions and review what it writes, and how much a game depends on feel and playtesting. Still in progress, and I'll keep updating it.</p>
-    </div>
-    <div class="p-frames">
-      <figure class="wide">
-        <div class="player"><iframe src="https://www.youtube-nocookie.com/embed/6auf4vZ6IIQ?rel=0&iv_load_policy=3&playsinline=1&color=white" title="Supply Run gameplay video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-        <figcaption>Current build. <a href="https://youtu.be/6auf4vZ6IIQ" target="_blank" rel="noopener">Watch on YouTube</a> if it doesn't load.</figcaption>
-      </figure>
-    </div>
-  </section>
-
   <div class="section-head" id="about">
     <h2>[about]</h2>
   </div>
@@ -401,6 +419,14 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     <span>Graphic Designer / Motion Designer / Video Editor</span>
   </footer>
 </div>
+<dialog class="lightbox" id="lightbox" aria-label="Image viewer">
+  <p class="lb-count" id="lb-count" aria-live="polite"></p>
+  <button type="button" class="lb-btn lb-close" id="lb-close" aria-label="Close">&times;</button>
+  <button type="button" class="lb-btn lb-prev" id="lb-prev" aria-label="Previous image">&larr;</button>
+  <button type="button" class="lb-btn lb-next" id="lb-next" aria-label="Next image">&rarr;</button>
+  <div class="lb-stage" id="lb-stage"><img class="lb-img" id="lb-img" alt=""></div>
+  <p class="lb-cap" id="lb-cap"></p>
+</dialog>
 <a class="to-top" id="to-top" href="#page-top" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
 <script>
 (function () {
@@ -431,6 +457,30 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     if(count)count.textContent=n+(n===1?' project':' projects');
   }
   pills.forEach(function(b){b.addEventListener('click',function(){apply(b.dataset.filter);});});
+})();
+
+(function(){
+  var dlg=document.getElementById('lightbox');
+  if(!dlg||typeof dlg.showModal!=='function')return;
+  var img=document.getElementById('lb-img'),cap=document.getElementById('lb-cap'),cnt=document.getElementById('lb-count'),list=[],idx=0,opener=null;
+  document.querySelectorAll('img.shot').forEach(function(i){i.setAttribute('tabindex','0');i.setAttribute('role','button');i.setAttribute('aria-label','Enlarge: '+(i.alt||'image'));});
+  function visible(){return Array.prototype.filter.call(document.querySelectorAll('img.shot'),function(i){return !i.closest('[hidden]')&&i.closest('.project');});}
+  function show(n){
+    idx=(n+list.length)%list.length;var el=list[idx],fc=el.closest('figure')&&el.closest('figure').querySelector('figcaption');
+    img.src=el.currentSrc||el.src;img.alt=el.alt;cap.textContent=fc?fc.textContent:'';cnt.textContent='['+(idx+1)+'/'+list.length+']';
+  }
+  function open(el){list=visible();if(list.indexOf(el)<0)list=[el];opener=el;show(list.indexOf(el));document.body.classList.add('lb-open');dlg.showModal();}
+  function close(){if(dlg.open)dlg.close();}
+  document.addEventListener('click',function(e){var t=e.target;if(t.matches&&t.matches('img.shot'))open(t);});
+  document.addEventListener('keydown',function(e){var t=e.target;if((e.key==='Enter'||e.key===' ')&&t.matches&&t.matches('img.shot')){e.preventDefault();open(t);}});
+  document.getElementById('lb-close').addEventListener('click',close);
+  document.getElementById('lb-prev').addEventListener('click',function(){show(idx-1);});
+  document.getElementById('lb-next').addEventListener('click',function(){show(idx+1);});
+  dlg.addEventListener('click',function(e){if(e.target===dlg||e.target.id==='lb-stage')close();});
+  dlg.addEventListener('keydown',function(e){if(e.key==='ArrowLeft')show(idx-1);else if(e.key==='ArrowRight')show(idx+1);});
+  dlg.addEventListener('close',function(){document.body.classList.remove('lb-open');img.removeAttribute('src');if(opener)opener.focus({preventScroll:true});});
+  var x0=null;dlg.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  dlg.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>50)show(idx+(d<0?1:-1));},{passive:true});
 })();
 </script>
 </body>
