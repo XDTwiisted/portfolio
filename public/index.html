@@ -111,9 +111,21 @@ h1 {
 h2 { margin: 0; font-family: var(--f-display); font-stretch: 112%; font-weight: 750; font-size: clamp(1.5rem, 3.2vw, 2.1rem); letter-spacing: -0.01em; }
 .section-head p { margin: 0; font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
 
+
+/* Filters */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { font: inherit; font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--ink); background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 8px 16px; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+@media (hover: hover) { .pill:hover { border-color: var(--accent); color: var(--accent); } }
+.pill.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+:root[data-theme="dark"] .pill.is-active { color: #0b0b0f; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pill.is-active { color: #0b0b0f; } }
+
 /* Projects */
 .project { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; padding-block: 40px; border-top: 1px solid var(--rule); }
-.project:first-of-type { border-top: 0; }
+.project:first-of-type, .project.is-first { border-top: 0; }
+.project[hidden] { display: none; }
 .p-head { grid-column: 1 / span 4; min-width: 0; align-self: start; position: sticky; top: 24px; }
 .p-frames { grid-column: 5 / span 8; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .p-frames .wide { grid-column: 1 / -1; }
@@ -230,11 +242,17 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
   </section>
 
   <div class="section-head" id="work">
-    <h2>Selected work</h2>
-    <p>7 projects</p>
+    <h2 class="sr-only">Work</h2>
+    <div class="filters" role="group" aria-label="Filter projects">
+      <button type="button" class="pill is-active" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" class="pill" data-filter="digital" aria-pressed="false">Digital</button>
+      <button type="button" class="pill" data-filter="print" aria-pressed="false">Print</button>
+      <button type="button" class="pill" data-filter="personal" aria-pressed="false">Personal</button>
+    </div>
+    <p id="work-count" aria-live="polite">7 projects</p>
   </div>
 
-  <section class="project" id="automotive-assets">
+  <section class="project" id="automotive-assets" data-cat="digital">
     <div class="p-head">
       <h3>Automotive Assets</h3>
       <p class="p-tags">Digital Advertising / Display Banners / OEM Campaign</p>
@@ -250,7 +268,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
     </div>
   </section>
 
-  <section class="project" id="service-menu">
+  <section class="project" id="service-menu" data-cat="print">
     <div class="p-head">
       <h3>Honda of Huntersville Service Menu</h3>
       <p class="p-tags">Print Design / Tri-fold Brochure / OEM</p>
@@ -262,7 +280,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
     </div>
   </section>
 
-  <section class="project" id="promotional-service">
+  <section class="project" id="promotional-service" data-cat="digital">
     <div class="p-head">
       <h3>Promotional Service</h3>
       <p class="p-tags">Promotional Design / Logo Lockup</p>
@@ -273,7 +291,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
     </div>
   </section>
 
-  <section class="project" id="hiring-campaign">
+  <section class="project" id="hiring-campaign" data-cat="digital">
     <div class="p-head">
       <h3>Automotive Hiring Campaign</h3>
       <p class="p-tags">Digital Advertising / Recruitment</p>
@@ -287,7 +305,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
     </div>
   </section>
 
-  <section class="project" id="elises-cookin">
+  <section class="project" id="elises-cookin" data-cat="digital personal">
     <div class="p-head">
       <h3>Elise's Cookin'</h3>
       <p class="p-tags">Personal Project / Web Design</p>
@@ -300,7 +318,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
     </div>
   </section>
 
-  <section class="project" id="collage-collision">
+  <section class="project" id="collage-collision" data-cat="personal">
     <div class="p-head">
       <h3>Collage Collision</h3>
       <p class="p-tags">Collage / Packaging / Visual Metaphor</p>
@@ -312,7 +330,7 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
     </div>
   </section>
 
-  <section class="project" id="ink-art">
+  <section class="project" id="ink-art" data-cat="personal">
     <div class="p-head">
       <h3>Ink Art</h3>
       <p class="p-desc">For this project I let the ink create its own path.</p>
@@ -375,6 +393,21 @@ footer { border-top: 1px solid var(--rule); padding-top: 20px; display: flex; fl
     var mark = document.querySelector('.top .mark');
     if (mark) mark.focus({ preventScroll: true });
   });
+})();
+
+(function(){
+  var pills=document.querySelectorAll('.pill'),projects=document.querySelectorAll('.project[data-cat]'),count=document.getElementById('work-count');
+  function apply(f){
+    var n=0,first=true;
+    projects.forEach(function(p){
+      var show=f==='all'||p.dataset.cat.split(' ').indexOf(f)>-1;
+      p.hidden=!show;p.classList.remove('is-first');
+      if(show){n++;if(first){p.classList.add('is-first');first=false;}}
+    });
+    pills.forEach(function(b){var a=b.dataset.filter===f;b.classList.toggle('is-active',a);b.setAttribute('aria-pressed',a);});
+    if(count)count.textContent=n+(n===1?' project':' projects');
+  }
+  pills.forEach(function(b){b.addEventListener('click',function(){apply(b.dataset.filter);});});
 })();
 </script>
 </body>
