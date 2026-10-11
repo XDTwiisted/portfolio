@@ -230,9 +230,12 @@ figcaption { margin-top: 8px; font-family: var(--f-mono); font-size: 0.8rem; col
 
 /* Lightbox */
 .shot { cursor: zoom-in; }
+.shot.cutout { border: 0; background: none; }
+@media (hover: hover) and (pointer: fine) { .shot.cutout:hover { box-shadow: none; } }
 .lightbox { border: 0; padding: 0; margin: 0; width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; background: rgba(10, 10, 9, 0.98); color: #ECE8DC; }
 .lightbox::backdrop { background: transparent; }
 .lb-stage { position: absolute; inset: 0; display: grid; place-items: center; padding: 64px 16px 72px; }
+.lb-img.cut { background: none; box-shadow: none; }
 .lb-img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
 .lb-cap { position: absolute; left: 16px; right: 16px; bottom: 20px; margin: 0; text-align: center; font-family: var(--f-mono); font-size: 0.85rem; color: #BDB8AB; }
 .lb-btn { position: absolute; z-index: 1; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid rgba(236,232,220,.35); border-radius: 50%; background: rgba(20,20,18,.7); color: #ECE8DC; font: 400 1.5rem/1 var(--f-mono); cursor: pointer; }
@@ -414,8 +417,8 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
       <p class="p-desc">Mirror hang tags for two different dealerships, each designed for the dealership's brand and printed front and back. One is a VIP tag with space to name the customer and team member, and its back lists reasons to buy and service there. The other promotes a Kelley Blue Book Instant Cash Offer, with a bold headline, three simple steps and QR codes to start the offer.</p>
     </div>
     <div class="p-frames">
-      <figure class="wide"><img class="shot" src="images/hangtag-vip.jpg" width="1710" height="2100" loading="lazy" alt="Front and back of a VIP hang tag for Honda of Huntersville. The front has a large blue VIP over lines for Reserved For and Team Member. The back, titled Why Buy and Service With Us, lists seven benefits with icons, including a large service facility, transparent pricing and complimentary vehicle inspection."><figcaption>VIP hang tag, front and back</figcaption></figure>
-      <figure class="wide"><img class="shot" src="images/hangtag-kbb.jpg" width="1710" height="2100" loading="lazy" alt="Front and back of a hang tag for a Kelley Blue Book Instant Cash Offer. The front asks What could you get for your car in large blue type, with a QR code panel. The back gives three numbered steps and a second QR code."><figcaption>Instant Cash Offer hang tag, front and back</figcaption></figure>
+      <figure class="wide"><img class="shot cutout" src="images/hangtag-vip.webp" width="1710" height="2100" loading="lazy" alt="Front and back of a VIP hang tag for Honda of Huntersville. The front has a large blue VIP over lines for Reserved For and Team Member. The back, titled Why Buy and Service With Us, lists seven benefits with icons, including a large service facility, transparent pricing and complimentary vehicle inspection."><figcaption>VIP hang tag, front and back</figcaption></figure>
+      <figure class="wide"><img class="shot cutout" src="images/hangtag-kbb.webp" width="1710" height="2100" loading="lazy" alt="Front and back of a hang tag for a Kelley Blue Book Instant Cash Offer. The front asks What could you get for your car in large blue type, with a QR code panel. The back gives three numbered steps and a second QR code."><figcaption>Instant Cash Offer hang tag, front and back</figcaption></figure>
     </div>
   </section>
 
@@ -577,7 +580,7 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
   function visible(){return Array.prototype.filter.call(document.querySelectorAll('img.shot'),function(i){return !i.closest('[hidden]')&&i.closest('.project');});}
   function show(n){
     idx=(n+list.length)%list.length;var el=list[idx],fc=el.closest('figure')&&el.closest('figure').querySelector('figcaption');
-    img.src=el.currentSrc||el.src;img.alt=el.alt;cap.textContent=fc?fc.textContent:'';cnt.textContent='['+(idx+1)+'/'+list.length+']';
+    img.src=el.currentSrc||el.src;img.alt=el.alt;img.classList.toggle('cut',el.classList.contains('cutout'));cap.textContent=fc?fc.textContent:'';cnt.textContent='['+(idx+1)+'/'+list.length+']';
   }
   function open(el){list=visible();if(list.indexOf(el)<0)list=[el];opener=el;show(list.indexOf(el));document.body.classList.add('lb-open');dlg.showModal();}
   function close(){if(dlg.open)dlg.close();}
