@@ -276,6 +276,8 @@ body.lb-open { overflow: hidden; }
 /* Contact */
 .contact { border-top: 1px dashed var(--rule); padding-block: 24px 40px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
 .contact h2 { grid-column: 1 / span 4; }
+.contact-note { grid-column: 5 / span 8; margin: 0; font-size: 1.15rem; max-width: 52ch; }
+.contact-note a { text-decoration-color: var(--accent); text-underline-offset: 4px; text-decoration-thickness: 2px; }
 .contact dl { grid-column: 5 / span 8; margin: 0; display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 12px 16px; align-items: baseline; }
 .contact dt { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; }
 .contact dd { margin: 0; font-size: 1.15rem; overflow-wrap: anywhere; }
@@ -287,7 +289,7 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
 @media (max-width: 860px) {
   .hero-main, .hero-side { grid-column: 1 / -1; }
   .project { gap: 20px; }
-  .p-head, .p-frames, .about-photo, .about-text, .contact h2, .contact dl { grid-column: 1 / -1; }
+  .p-head, .p-frames, .about-photo, .about-text, .contact h2, .contact-note, .contact dl { grid-column: 1 / -1; }
   .p-head { position: static; }
   .about-photo { max-width: 360px; }
 }
@@ -517,6 +519,7 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
 
   <section class="contact" id="contact">
     <h2>[contact]</h2>
+    <p class="contact-note">I'm currently working, but if the right role comes along, I'd love to hear about it. <a href="mailto:tenneyhunter@gmail.com">Email me</a>.</p>
     <dl>
       <dt>EMAIL</dt>
       <dd><a href="mailto:tenneyhunter@gmail.com">tenneyhunter@gmail.com</a></dd>
