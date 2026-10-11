@@ -14,7 +14,7 @@
 <title>Hunter Tenney Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Courier+Prime:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 /* Layout: left-aligned, asymmetric. A wide expanded-width name over a link to the intro reel.
    Each project is a text column beside its image frames, drawn as ad proofs with safe-area guides. */
@@ -30,7 +30,7 @@
   --hatch: #DDD9CE;
   --guide: #9AA6C9;
   --f-display: "Courier Prime", "Courier New", Courier, monospace;
-  --f-body: "Courier Prime", "Courier New", Courier, monospace;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --f-mono: "Courier Prime", "Courier New", Courier, monospace;
 }
 @media (prefers-color-scheme: dark) {
@@ -138,7 +138,7 @@ h3 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: clam
 .wrap { counter-reset: proj; }
 .p-tags { margin: 10px 0 0; font-family: var(--f-mono); font-size: 0.85rem; letter-spacing: 0.02em; color: var(--accent); }
 .p-tags::before { content: "// "; color: var(--muted); }
-.p-desc { margin: 16px 0 0; max-width: 46ch; color: var(--ink); font-size: 0.95rem; line-height: 1.6; }
+.p-desc { margin: 16px 0 0; max-width: 46ch; color: var(--ink); font-size: 1rem; line-height: 1.6; }
 
 figure { margin: 0; min-width: 0; }
 figcaption { margin-top: 8px; font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); overflow-wrap: anywhere; }
