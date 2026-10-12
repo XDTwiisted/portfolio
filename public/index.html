@@ -198,7 +198,9 @@ h2 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: clam
 .p-frames { grid-column: 5 / span 8; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 .p-frames .wide { grid-column: 1 / -1; }
 h3 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: clamp(1.3rem, 2.2vw, 1.6rem); line-height: 1.15; text-wrap: balance; }
-.p-head::before { counter-increment: proj; content: "[" counter(proj, decimal-leading-zero) "]"; display: block; margin-bottom: 10px; font-family: var(--f-mono); font-size: 0.9rem; color: var(--muted); }
+.p-head::before { counter-increment: proj; content: "[" counter(proj, decimal-leading-zero) "]"; display: inline-block; margin-bottom: 10px; font-family: var(--f-mono); font-size: 0.9rem; color: var(--muted); }
+.p-client { display: inline-block; margin: 0 0 10px 10px; padding: 1px 8px; font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); border: 1px solid currentColor; border-radius: 999px; vertical-align: 1px; }
+.p-head > h3 { display: block; }
 .wrap { counter-reset: proj; }
 .p-tags { margin: 10px 0 0; font-family: var(--f-mono); font-size: 0.85rem; letter-spacing: 0.02em; color: var(--accent); }
 .p-tags::before { content: "// "; color: var(--muted); }
@@ -246,7 +248,8 @@ figcaption { margin-top: 8px; font-family: var(--f-mono); font-size: 0.8rem; col
 .lb-prev { left: 12px; } .lb-next { right: 12px; }
 .lb-count { position: absolute; top: 24px; left: 20px; margin: 0; font-family: var(--f-mono); font-size: 0.85rem; color: #BDB8AB; }
 body.lb-open { overflow: hidden; }
-@media (max-width: 520px) { .lb-stage { padding: 64px 0 72px; } .lb-prev, .lb-next { top: auto; bottom: 12px; transform: none; } .lb-cap { bottom: 72px; } }
+@media (max-width: 520px) {
+  .pill { font-size: 0.8rem; padding: 7px 12px; } .lb-stage { padding: 64px 0 72px; } .lb-prev, .lb-next { top: auto; bottom: 12px; transform: none; } .lb-cap { bottom: 72px; } }
 
 /* Back to top */
 .to-top {
@@ -381,14 +384,15 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     <h2>[work]</h2>
     <div class="filters" role="group" aria-label="Filter projects">
       <button type="button" class="pill is-active" data-filter="all" aria-pressed="true">All</button>
-      <button type="button" class="pill" data-filter="digital" aria-pressed="false">Digital</button>
-      <button type="button" class="pill" data-filter="print" aria-pressed="false">Print</button>
-      <button type="button" class="pill" data-filter="personal" aria-pressed="false">Personal</button>
+      <button type="button" class="pill" data-filter="ads" aria-pressed="false">Advertising</button>
+      <button type="button" class="pill" data-filter="brand" aria-pressed="false">Branding &amp; Print</button>
+      <button type="button" class="pill" data-filter="web" aria-pressed="false">Web &amp; Interactive</button>
+      <button type="button" class="pill" data-filter="art" aria-pressed="false">Art &amp; Experiments</button>
     </div>
     <p id="work-count" aria-live="polite">11 projects</p>
   </div>
 
-  <section class="project" id="supply-run" data-cat="personal">
+  <section class="project" id="supply-run" data-cat="web">
     <div class="p-head">
       <h3>Supply Run</h3>
       <p class="p-tags">Game Development / Unity / Work in Progress</p>
@@ -402,8 +406,9 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </section>
   </section>
 
-  <section class="project" id="automotive-assets" data-cat="digital">
+  <section class="project" id="automotive-assets" data-cat="ads">
     <div class="p-head">
+      <p class="p-client">client work</p>
       <h3>Automotive Assets</h3>
       <p class="p-tags">Digital Advertising / Display Banners / OEM Campaign</p>
       <p class="p-desc">Working in the automotive industry means creating fresh marketing assets every month while balancing OEM brand guidelines, dealership promotions and tight deadlines. Each piece is designed to communicate the most important information quickly and clearly.</p>
@@ -418,8 +423,9 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </section>
   </section>
 
-  <section class="project" id="hang-tags" data-cat="print">
+  <section class="project" id="hang-tags" data-cat="brand">
     <div class="p-head">
+      <p class="p-client">client work</p>
       <h3>Dealership Hang Tags</h3>
       <p class="p-tags">Print Design / Hang Tags / Two Dealerships</p>
       <p class="p-desc">Mirror hang tags for two different dealerships, each designed for the dealership's brand and printed front and back. One is a VIP tag with space to name the customer and team member, and its back lists reasons to buy and service there. The other, for a Chrysler Dodge Jeep Ram dealership, promotes a Kelley Blue Book Instant Cash Offer, with a bold headline, three simple steps and QR codes to start the offer.</p>
@@ -430,8 +436,9 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </section>
   </section>
 
-  <section class="project" id="service-brochure" data-cat="print">
+  <section class="project" id="service-brochure" data-cat="brand">
     <div class="p-head">
+      <p class="p-client">client work</p>
       <h3>Honda of Huntersville Service Menu</h3>
       <p class="p-tags">Print Design / Tri-fold Brochure / OEM</p>
       <p class="p-desc">I took a large amount of unorganized information and turned it into a clean, condensed printout for a dealership. The service menu shows customers each package and what's included. I designed it in Photoshop and took it through to the printed piece, keeping it clear and easy for the customer to understand.</p>
@@ -442,8 +449,9 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </section>
   </section>
 
-  <section class="project" id="promotional-service" data-cat="digital">
+  <section class="project" id="promotional-service" data-cat="ads brand">
     <div class="p-head">
+      <p class="p-client">client work</p>
       <h3>Promotional Service</h3>
       <p class="p-tags">Promotional Design / Logo Lockup</p>
       <p class="p-desc">A $40 oil change promotion for a dealership. It needed a logo that matched their brand and look, so I followed the brand guidelines to make something that stands out. It was used on mats, window clings and other items throughout the store as part of a big promotional push.</p>
@@ -453,8 +461,9 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </section>
   </section>
 
-  <section class="project" id="hiring-campaign" data-cat="digital">
+  <section class="project" id="hiring-campaign" data-cat="ads">
     <div class="p-head">
+      <p class="p-client">client work</p>
       <h3>Automotive Hiring Campaign</h3>
       <p class="p-tags">Digital Advertising / Recruitment</p>
       <p class="p-desc">Digital advertising assets built to support automotive recruitment campaigns. Bold visuals, clear messaging and one consistent design approach carry the hiring message across several executions.</p>
@@ -467,7 +476,7 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </section>
   </section>
 
-  <section class="project" id="rediscover-reading" data-cat="personal">
+  <section class="project" id="rediscover-reading" data-cat="ads">
     <div class="p-head">
       <h3>Rediscover Reading</h3>
       <p class="p-tags">Campaign Concept / Photo Manipulation / Series</p>
@@ -480,7 +489,7 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </section>
   </section>
 
-  <section class="project" id="white-sulphur-springs" data-cat="personal">
+  <section class="project" id="white-sulphur-springs" data-cat="brand">
     <div class="p-head">
       <h3>White Sulphur Springs Logo Redesign</h3>
       <p class="p-tags">Branding / Logo Design / Concept</p>
@@ -493,7 +502,7 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </section>
   </section>
 
-  <section class="project" id="elises-cookin" data-cat="digital personal">
+  <section class="project" id="elises-cookin" data-cat="web">
     <div class="p-head">
       <h3>Elise's Cookin'</h3>
       <p class="p-tags">Personal Project / Web Design</p>
@@ -506,7 +515,7 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </section>
   </section>
 
-  <section class="project" id="collage-collision" data-cat="personal">
+  <section class="project" id="collage-collision" data-cat="art">
     <div class="p-head">
       <h3>Collage Collision</h3>
       <p class="p-tags">Collage / Packaging / Visual Metaphor</p>
@@ -518,7 +527,7 @@ footer { border-top: 1px dashed var(--rule); padding-top: 20px; display: flex; f
     </section>
   </section>
 
-  <section class="project" id="ink-art" data-cat="personal">
+  <section class="project" id="ink-art" data-cat="art">
     <div class="p-head">
       <h3>Ink Art</h3>
       <p class="p-desc">I let the ink find its own path, then brought the drops into Photoshop and added digital touches. The result sets the random, organic drops against the technical precision of perfect circles, two contrasting elements in one piece.</p>
